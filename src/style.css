@@ -1,0 +1,13 @@
+table{
+    background-color: rgb(123, 145, 204);
+}
+td,th{
+    padding: 10px;
+}
+th{
+    background-color: rgb(54, 230, 121);;
+}
+select{
+    padding: 8px;
+    font-size: 18px;
+}
