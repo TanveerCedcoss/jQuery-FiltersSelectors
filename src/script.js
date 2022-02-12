@@ -38,6 +38,9 @@ var products = [
 ];
 
 
+var brandd=0;
+var oss=0;
+
 //displaying array in tabular form
 var table =
   "<table><tr><th>ID</th><th>Name</th><th>Brand</th><th>OS</th><th>Remove</th></tr>";
@@ -51,7 +54,7 @@ for (i = 0; i < products.length; i++) {
     products[i].brand +
     "</td><td>" +
     products[i].os +
-    "</td><td class=x>X</td></tr>";
+    "</td><td class='x'>X</td></tr>";
 }
 table += "</table>";
 
@@ -63,76 +66,85 @@ $(".x").click(function () {
   $(this).parent().hide();
 });
 
+
+console.log(oss);
 $("#brand").click(function () {
-  var brandd = $("#brand").val();
   console.log(brandd);
-  if(brandd=='All')
-    {
-      $("#content").html(table);
-    }
-    else{
-      updateTable(brandd);
-    }
+  console.log(typeof(brandd));
+  console.log(oss);
+  if( $("#brand").val()=='All')
+  {
+   
+    brandd=0;
+  }
+  else{
+    brandd = $("#brand").val();
+  }
+  console.log(brandd);
+  console.log(typeof(brandd));
+  updateTable(brandd);
   
 });
 
+
+
+console.log(oss);
 $("#os").click(function () {
-  var oss = $("#os").val();
   console.log(oss);
-  if(oss=='All')
-    {
-      $("#content").html(table);
-    }
-    else{
-      updateTable(oss);
-    }
+  if($("#os").val()!='All')
+  {
+    oss= $("#os").val();
+  }
+  else{
+    oss=0;
+  }
+
+  console.log(oss);
+  console.log(brandd);
+  updateTable(oss);
+  
 });
 
-function updateTable(brandd,oss) {
+
+
+function updateTable() {
   newTable=[];
+  console.log(oss,brandd);
+  console.log(oss);
   for (var i = 0; i < products.length; i++) 
   {
+    console.log(typeof(products[i].brand));
     if (brandd == products[i].brand && oss==0) {
       newTable.push(products[i]);
+      console.log("checking brand");
     }
     if (oss == products[i].os && brandd==0) {
       newTable.push(products[i]);
+      console.log("checking os");
     }
-    else{
-      if(brandd == products[i].brand && oss == products[i].os)
-      {
+    if(brandd == products[i].brand && oss == products[i].os)
+    {
         newTable.push(products[i]);
-      }
-    }
-  }
-  console.log(newTable);
-  displayTable(newTable);
-}
-
-/*
-function updateTable2(oss)
-{
-  newTable=[];
-  for (var i = 0; i < products.length; i++) 
-  {
-    if (oss == products[i].os) {
-      newTable.push(products[i]);
+        console.log("checking all");
     }
     
-  }
   console.log(newTable);
   displayTable(newTable);
+  if(brandd==0 && oss== 0)
+    {
+      $("#content").html(table);
+      console.log("printing all");
+    }
+  
+
 }
-
-*/
-
+}
 
 
 
 function displayTable(newTable) {
   var newTableD =
     "<table><tr><th>ID</th><th>Name</th><th>Brand</th><th>OS</th><th>Remove</th></tr>";
-  console.log(newTableD);
 
   
   for(i=0;i<newTable.length;i++)
@@ -149,6 +161,21 @@ function displayTable(newTable) {
     "</td><td class='x'>X</td></tr>";
   }
   newTableD += "</table>";
-  console.log(newTableD);
   $("#content").html(newTableD);
 }
+
+
+$("button").click(function(){
+  var search=$("#input").val();
+  var newTableD =
+    "<table><tr><th>ID</th><th>Name</th><th>Brand</th><th>OS</th><th>Remove</th></tr>";
+  console.log(search);
+  for(var i=0;i<products.length;i++)
+  {
+    if(search==products[i].name)
+    {
+      newTableD.push(products[i]);
+    }
+  }
+  console.log(serTab);
+});
