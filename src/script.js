@@ -167,15 +167,23 @@ function displayTable(newTable) {
 
 $("button").click(function(){
   var search=$("#input").val();
-  var newTableD =
-    "<table><tr><th>ID</th><th>Name</th><th>Brand</th><th>OS</th><th>Remove</th></tr>";
   console.log(search);
+  var flag=0;
   for(var i=0;i<products.length;i++)
   {
-    if(search==products[i].name)
+    if(search==products[i].id || search.toLowerCase()==products[i].name.toLowerCase())
     {
-      newTableD.push(products[i]);
+      var tab='<table><tr><th>ID</th><th>Name</th><th>Brand</th><th>OS</th></tr>';
+      console.log(products[i]);
+      tab += "<tr><td>"+products[i].id+"</td><td>"+products[i].name+"</td><td>"+products[i].brand+"</td><td>"+products[i].os+"</td></tr>";
+      tab += "</table>";
+      flag=1;
+    }
+    if(flag=0){
+      tab="Error!!! Product not found!!! Please enter correct ID or Name(must enter complete name!!)"
     }
   }
-  console.log(serTab);
+
+  $("#result").html(tab);
+  console.log(search);
 });
