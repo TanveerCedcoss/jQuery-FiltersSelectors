@@ -37,9 +37,8 @@ var products = [
   },
 ];
 
-
-var brandd=0;
-var oss=0;
+var brandd = 0;
+var oss = 0;
 
 //displaying array in tabular form
 var table =
@@ -66,121 +65,127 @@ $(".x").click(function () {
   $(this).parent().hide();
 });
 
-
 console.log(oss);
-$("#brand").click(function () {
+$("#head").on("click", "#brand", function () {
   console.log(brandd);
-  console.log(typeof(brandd));
+  console.log(typeof brandd);
   console.log(oss);
-  if( $("#brand").val()=='All')
-  {
-   
-    brandd=0;
-  }
-  else{
+  if ($("#brand").val() == "All") {
+    brandd = 0;
+  } else {
     brandd = $("#brand").val();
   }
   console.log(brandd);
-  console.log(typeof(brandd));
+  console.log(typeof brandd);
   updateTable(brandd);
-  
 });
 
-
-
 console.log(oss);
-$("#os").click(function () {
+$("#head").on("click", "#os", function () {
   console.log(oss);
-  if($("#os").val()!='All')
-  {
-    oss= $("#os").val();
-  }
-  else{
-    oss=0;
+  if ($("#os").val() != "All") {
+    oss = $("#os").val();
+  } else {
+    oss = 0;
   }
 
   console.log(oss);
   console.log(brandd);
   updateTable(oss);
-  
 });
 
-
-
 function updateTable() {
-  newTable=[];
-  console.log(oss,brandd);
+  newTable = [];
+  console.log(oss, brandd);
   console.log(oss);
-  for (var i = 0; i < products.length; i++) 
-  {
-    console.log(typeof(products[i].brand));
-    if (brandd == products[i].brand && oss==0) {
+  for (var i = 0; i < products.length; i++) {
+    console.log(typeof products[i].brand);
+    if (brandd == products[i].brand && oss == 0) {
       newTable.push(products[i]);
       console.log("checking brand");
     }
-    if (oss == products[i].os && brandd==0) {
+    if (oss == products[i].os && brandd == 0) {
       newTable.push(products[i]);
       console.log("checking os");
     }
-    if(brandd == products[i].brand && oss == products[i].os)
-    {
-        newTable.push(products[i]);
-        console.log("checking all");
+    if (brandd == products[i].brand && oss == products[i].os) {
+      newTable.push(products[i]);
+      console.log("checking all");
     }
-    
-  console.log(newTable);
-  displayTable(newTable);
-  if(brandd==0 && oss== 0)
-    {
+
+    console.log(newTable);
+    displayTable(newTable);
+    if (brandd == 0 && oss == 0) {
       $("#content").html(table);
       console.log("printing all");
     }
-  
-
+  }
 }
-}
-
-
 
 function displayTable(newTable) {
   var newTableD =
     "<table><tr><th>ID</th><th>Name</th><th>Brand</th><th>OS</th><th>Remove</th></tr>";
 
-  
-  for(i=0;i<newTable.length;i++)
-  {
-	newTableD +=
-    "<tr><td>" +
-    newTable[i].id +
-    "</td><td>" +
-    newTable[i].name +
-    "</td><td>" +
-    newTable[i].brand +
-    "</td><td>" +
-    newTable[i].os +
-    "</td><td class='x'>X</td></tr>";
+  for (i = 0; i < newTable.length; i++) {
+    newTableD +=
+      "<tr><td>" +
+      newTable[i].id +
+      "</td><td>" +
+      newTable[i].name +
+      "</td><td>" +
+      newTable[i].brand +
+      "</td><td>" +
+      newTable[i].os +
+      "</td><td class='x'>X</td></tr>";
   }
   newTableD += "</table>";
   $("#content").html(newTableD);
 }
 
+var filters =
+  '<select name="brand" id="brand">\
+<option value="All">All</option>\
+<option value="Apple">Apple</option>\
+<option value="Samsung">Samsung</option>\
+<option value="Motorola">Motorola</option>\
+<option value="Microsoft">Microsoft</option>\
+</select>\
+<select name="os" id="os">\
+<option value="All">All</option>\
+<option value="Android">Android</option>\
+<option value="iOS">iOS</option>\
+<option value="Windows">Windows</option>\
+</select><br><br>';
+document.getElementById("head").innerHTML = filters;
 
-$("button").click(function(){
-  var search=$("#input").val();
+$("button").click(function () {
+  var search = $("#input").val();
   console.log(search);
-  var flag=0;
-  for(var i=0;i<products.length;i++)
-  {
-    if(search==products[i].id || search.toLowerCase()==products[i].name.toLowerCase())
-    {
-      var tab='<table><tr><th>ID</th><th>Name</th><th>Brand</th><th>OS</th></tr>';
+  var flag = 0;
+  for (var i = 0; i < products.length; i++) {
+    if (
+      search == products[i].id ||
+      search.toLowerCase() == products[i].name.toLowerCase()
+    ) {
+      var tab =
+        "<table><tr><th>ID</th><th>Name</th><th>Brand</th><th>OS</th></tr>";
       console.log(products[i]);
-      tab += "<tr><td>"+products[i].id+"</td><td>"+products[i].name+"</td><td>"+products[i].brand+"</td><td>"+products[i].os+"</td></tr>";
+      tab +=
+        "<tr><td>" +
+        products[i].id +
+        "</td><td>" +
+        products[i].name +
+        "</td><td>" +
+        products[i].brand +
+        "</td><td>" +
+        products[i].os +
+        "</td></tr>";
       tab += "</table>";
-      flag=1;
+      flag = 1;
     }
-    if(flag=0){
-      tab="Error!!! Product not found!!! Please enter correct ID or Name(must enter complete name!!)"
+    if ((flag = 0)) {
+      tab =
+        "Error!!! Product not found!!! Please enter correct ID or Name(must enter complete name!!)";
     }
   }
 
